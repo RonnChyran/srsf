@@ -22,7 +22,7 @@ public class Test
         }
 
         for(PokemonType t : sc.getCollection(PokemonType.class)) {
-            System.out.println(t.getWeaknesses().getName());
+            System.out.println(t.getWeaknesses().get(0).getName());
         }
     }
 }

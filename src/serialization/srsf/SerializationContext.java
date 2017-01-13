@@ -38,7 +38,7 @@ public class SerializationContext
     {
         if(this.serializers.containsKey(collectionClass.getName())) {
             List<String> lines = Files.readAllLines(Paths.get(this.directory, schemaName+".srsf"), Charset.defaultCharset());
-            HashMap<String, String> currentSet = new HashMap<>();
+            HashMap<String, KeyValuePair> currentSet = new HashMap<>();
             this.collected.put(collectionClass.getName(), new ArrayList<>());
             for(String s : lines){
                 if(s.startsWith("~~!srsf~~")) continue;
@@ -55,7 +55,7 @@ public class SerializationContext
                 }
                 if(!s.contains("|")) continue; //be permissive
                 String[] kvp = s.split(Pattern.quote("|"), 2);
-                currentSet.put(kvp[0], kvp[1]);
+                currentSet.put(kvp[0], new KeyValuePair(kvp[0], kvp[1]));
             }
         }
     }

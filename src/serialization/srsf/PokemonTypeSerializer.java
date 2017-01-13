@@ -1,7 +1,6 @@
 package serialization.srsf;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Ronny on 2017-01-12.
@@ -13,13 +12,13 @@ public class PokemonTypeSerializer extends Serializer<PokemonType>
     }
 
     @Override
-    public PokemonType toObject(HashMap<String, String> keyValuePairs)
+    public PokemonType toObject(HashMap<String, KeyValuePair> keyValuePairs)
     {
-        String name = keyValuePairs.get("$name");
-        String weakness = keyValuePairs.get("$weakAgainst");
-        String strength = keyValuePairs.get("$strongAgainst");
+        String name = keyValuePairs.get("$name").asString();
+        String[] weakness = keyValuePairs.get("$weakAgainst").asStringArray();
+        String[] strength = keyValuePairs.get("$strongAgainst").asStringArray();
 
-        return new PokemonType(name, new Lazy<>(new PokemonTypeResolver(this.getContext(), weakness)),
-                new Lazy<>(new PokemonTypeResolver(this.getContext(), strength)));
+        return new PokemonType(name, new Lazy<>(new PokemonTypeListResolver(this.getContext(), weakness)),
+                new Lazy<>(new PokemonTypeListResolver(this.getContext(), strength)));
 }
 }

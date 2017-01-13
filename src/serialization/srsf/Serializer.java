@@ -14,5 +14,5 @@ public abstract class Serializer<E>
     protected SerializationContext getContext() {
         return this.context;
     }
-    public abstract E toObject(HashMap<String, String> keyValuePairs);
+    public abstract E toObject(HashMap<String, KeyValuePair> keyValuePairs);
 }

@@ -13,14 +13,14 @@ public class SchemaSerializer extends Serializer<Schema>
     }
 
     @Override
-    public Schema toObject(HashMap<String, String> keyValuePairs)
+    public Schema toObject(HashMap<String, KeyValuePair> keyValuePairs)
     {
-        String schemaName = keyValuePairs.get("$schemaName");
-        String outputType = keyValuePairs.get("$outputType");
+        String schemaName = keyValuePairs.get("$schemaName").asString();
+        String outputType = keyValuePairs.get("$outputType").asString();
         HashMap<String, String> properties = new HashMap<>();
-        for(Map.Entry<String, String> s : keyValuePairs.entrySet()) {
+        for(Map.Entry<String, KeyValuePair> s : keyValuePairs.entrySet()) {
             if(s.getKey().startsWith("@")) {
-                properties.put(s.getKey().substring(1), s.getValue());
+                properties.put(s.getKey().substring(1), s.getValue().asString());
             }
         }
         return new Schema(properties, schemaName, outputType);
